@@ -1,8 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.2",
-    "title": "Uturn API documentation",
+    "version": "1.0.3",
+   "x-logo": {
+      "url": "https://portal.uturn-system.com/assets/images/logo_uturn.png",
+      "backgroundColor": "#FFFFFF",
+      "altText": "Uturn logo",
+      "href": "https://uturn-now.com"
+    },
     "termsOfService": "UTURN License",
     "description" : "<div>
         <strong class = 'uturn-strong'>Release history</strong>
@@ -21,7 +26,13 @@
                 <li>Updated <strong class = 'uturn-strong'>POST Update a shipment</strong> API call to handle update contract of carriage setup</li>
                 <li>Updated field descriptions related to contract update.</li>
                 <li>Fields related to contract update will now be processed only after carrier confirms the request.</li>
-            </ul>          
+            </ul>
+            <li><strong class = 'uturn-strong'>V1.0.3</strong> :- </li>
+            <ul class = 'uturn-ul-style'>
+                <li>Updated <strong class = 'uturn-strong'>POST Create a shipment</strong> and <strong class = 'uturn-strong'>POST Update a shipment</strong> API calls. 
+                <li><strong>productCategory</strong> field is removed and replaced by <strong>cargoDescription</strong> string field</li>
+                <li><strong>requirements</strong> field is removed and replaced by <strong>requirementCodes</strong> string[] field. Multiple requirements can now be added.</li>
+            </ul>            
         </ol>
       </div>",
     "contact": {
@@ -875,18 +886,22 @@
           "example": 12000,
           "description": "Weight to be loaded + tare weight of container"
         },
-        "productCategory": {
-          "description": "The general type of goods that are in the container, list can be provided",
-          "$ref": "#/definitions/ProductCategory"
-        },
-        "requirements": {
-          "description": "The general type of goods that are in the container, list can be provided",
-          "$ref": "#/definitions/Requirement"
+        "cargoDescription": {
+          "type": "string",
+          "description": "The type of goods that are in the container"
         },
         "remarks": {
           "type": "string",
           "example": "Driver should wear white socks",
           "description": "Additional remarks for this shipment"
+        },
+        "requirementCodes": {
+          "type": "array",
+          "example": "['AC', 'OOG']",
+          "description": "The specific requirements for the transport. When status is Carrier Assigned, the carrier first needs to approve the update request.",
+          "items": {
+            "type": "string"
+          }
         },
         "transportStops": {
           "type": "array",
@@ -961,13 +976,6 @@
             "$ref": "#/definitions/ShippingLine"
           }
         },
-        "productCategories": {
-          "type": "array",
-          "description": "The general type of goods that are in the container, list can be provided.",
-          "items": {
-            "$ref": "#/definitions/ProductCategory"
-          }
-        },
         "requirements": {
           "type": "array",
           "description": "The general type of goods that are in the container, list can be provided.",
@@ -1015,21 +1023,6 @@
         "description": {
           "type": "string",
           "description": "Description of invoice line status"
-        }
-      }
-    },
-    "ProductCategory": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string",
-          "example": "012",
-          "description": "The code of the product category"
-        },
-        "name": {
-          "type": "string",
-          "example": "Electrical Supplies",
-          "description": "The name of the product category"
         }
       }
     },
@@ -1301,13 +1294,17 @@
           "example": 12000,
           "description": "Weight to be loaded + tare weight of container.When status is Carrier Assigned, the carrier first needs to approve the update request."
         },
-        "productCategory": {
-          "description": "The general type of goods that are in the container.When status is Carrier Assigned, the carrier first needs to approve the update request.",
-          "$ref": "#/definitions/ProductCategory"
+        "cargoDescription": {
+          "type": "string",
+          "description": "The general description of goods that are in the container."
         },
-        "requirements": {
-          "description": "The general type of goods that are in the container.When status is Carrier Assigned, the carrier first needs to approve the update request.",
-          "$ref": "#/definitions/Requirement"
+        "requirementCodes": {
+          "type": "array",
+          "example": "['AC', 'OOG']",
+          "description": "The specific requirements for the transport. When status is Carrier Assigned, the carrier first needs to approve the update request.",
+          "items": {
+            "type": "string"
+          }
         },
         "remarks": {
           "type": "string",
@@ -1335,12 +1332,12 @@
         "vat": {
           "type": "boolean",
           "example": false,
-          "description": "If TRUE, normal VAT rules will apply. If FALSE, 0% VAT will apply on this shipment."
+          "description": "If TRUE, normal VAT rules will apply. If FALSE, 0% VAT will apply on this shipment.By default FALSE."
         },
         "acceptancePrice": {
           "type": "boolean",
-          "example": true,
-          "description": "If TRUE carriers can accept the shipment for the price. If FALSE, it is bid only."
+          "example": false,
+          "description": "If TRUE carriers can accept the shipment for the price. If FALSE, it is bid only.By default FALSE."
         },
         "carriers": {
           "type": "array",
