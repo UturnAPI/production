@@ -90,7 +90,7 @@
       "url": "/portal/license"
     }
   },
-  "host": "https://api.uturn-system.com",
+  "host": "api.uturn-system.com",
   "basePath": "/portal",
   "tags": [
     {
