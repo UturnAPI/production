@@ -68,8 +68,8 @@
             </ul>
 	    <li><strong class = 'uturn-strong'>V1.2.0</strong> :- </li>
             <ul class = 'uturn-ul-style'>
-                <li><strong class = 'uturn-strong'><a href = '#operation/uploadDocumentsToShipmentUsingPOST'>Get shipments details</a></strong> was added to replace the 
-		    <strong class = 'uturn-strong'><a href = '#operation/uploadDocumentsToShipmentUsingPOST'>Get execution details</a></strong>
+                <li><strong class = 'uturn-strong'><a href = '#operation/fetchShipmentDetailsUsingGET'>Get shipments details</a></strong> was added to replace the 
+		    <strong class = 'uturn-strong'><a href = '#operation/getExecutionDetailsUsingGET'>Get execution details</a></strong>
 		    Get execution details call will be deprecated soon.	
 		</li>
             </ul>
